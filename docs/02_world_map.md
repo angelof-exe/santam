@@ -198,7 +198,18 @@ Dettaglio completo in un futuro `04_dungeons_kamikos.md`. Per la mappa serve sap
 
 ## 7. Sistemi di mappa e viaggio
 
-Proposte di come la mappa funziona meccanicamente:
+### 7.0 Modello di navigazione (decisione di design)
+
+Il gioco usa **navigazione laterale 2D in vista laterale** (side-view), **non top-down**. Il giocatore si muove solo orizzontalmente (sinistra/destra). Ai **bivi** — punti specifici dove più percorsi si incontrano — si ferma sopra una *Exit Zone* e preme **↑** (analogico in su o freccia su) per prendere il ramo alternativo; **↓** per scendere. Modello ispirato a JRPG come *Odin Sphere*, *Valkyrie Profile*, *Muramasa*.
+
+**Implicazioni visive e di design:**
+- Mappe pensate con **parallax**: foreground (gameplay), midground (edifici), background (cielo/calanchi)
+- NPC ed edifici disegnati **in vista laterale**, non dall'alto
+- Transizioni tra corridoi = "porte invisibili" ai bivi con feedback UI (prompt "↑" visibile quando il player è nella zona)
+- Il paese (cinque quartieri, §3) si traduce in una **catena di corridoi laterali** collegati da bivi verticali (salite/scalinate) e orizzontali (porte/archi)
+- Kàmikos sotterranea si presta naturalmente al side-view: camere-corridoio con ingranaggi giganti sullo sfondo, vapore in alto, pozzi in basso
+
+### 7.1 Traversata e fast travel
 
 - **Viaggio a piedi** dentro il paese: real-time esplorazione
 - **Carretto a vapore** per le masserie / zolfare / Munti: fast travel sbloccabile a metà Atto 1

@@ -4,6 +4,7 @@ class_name Player
 @export var speed: float = 80.0
 
 func _physics_process(_delta: float) -> void:
-	var input_vec := Input.get_vector("ui_left", "ui_right", "ui_up", "ui_down")
-	velocity = input_vec * speed
+	var h := Input.get_axis("ui_left", "ui_right")
+	velocity.x = h * speed
+	velocity.y = 0
 	move_and_slide()

@@ -6,21 +6,21 @@
 [sub_resource type="RectangleShape2D" id="WallShape_1"]
 size = Vector2(20, 400)
 
-[node name="TestRoom" type="Node2D"]
+[node name="TestRoomUpper" type="Node2D"]
 
 [node name="Background" type="ColorRect" parent="."]
 offset_left = -2000.0
 offset_top = -400.0
 offset_right = 2000.0
 offset_bottom = 400.0
-color = Color(0.15, 0.12, 0.1, 1)
+color = Color(0.2, 0.18, 0.26, 1)
 
 [node name="RoomLabel" type="Label" parent="."]
-offset_left = -80.0
+offset_left = -100.0
 offset_top = -80.0
-offset_right = 80.0
+offset_right = 100.0
 offset_bottom = -60.0
-text = "Corridoio A"
+text = "Corridoio B (sopra)"
 horizontal_alignment = 1
 
 [node name="Walls" type="Node2D" parent="."]
@@ -37,10 +37,10 @@ position = Vector2(400, 0)
 [node name="CollisionRight" type="CollisionShape2D" parent="Walls/WallRight"]
 shape = SubResource("WallShape_1")
 
-[node name="ExitZoneUp" parent="." instance=ExtResource("2_exit")]
+[node name="ExitZoneDown" parent="." instance=ExtResource("2_exit")]
 position = Vector2(0, 0)
-target_scene = "res://scenes/world/test_room_upper.tscn"
-trigger_action = "ui_up"
+target_scene = "res://scenes/world/test_room.tscn"
+trigger_action = "ui_down"
 
 [node name="Player" parent="." instance=ExtResource("1_player")]
-position = Vector2(-300, 0)
+position = Vector2(0, 0)
