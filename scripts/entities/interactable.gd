@@ -1,10 +1,9 @@
 extends StaticBody2D
-class_name NPC
+class_name Interactable
 
-@export var npc_name: String = "???"
-@export_multiline var dialogue: String = ""
-@export var flag_to_check: String = ""
-@export_multiline var dialogue_after_flag: String = ""
+@export var speaker_name: String = ""
+@export_multiline var interaction_text: String = ""
+@export var sets_flag: String = ""
 
 @onready var prompt_label: Label = $PromptLabel
 @onready var interact_area: Area2D = $InteractArea
@@ -38,18 +37,12 @@ func _unhandled_input(event: InputEvent) -> void:
 	if DialogueManager.is_active():
 		return
 	if event.is_action_pressed("ui_accept"):
-		_start_dialogue()
+		_interact()
 		get_viewport().set_input_as_handled()
 
-func _get_active_text() -> String:
-	if flag_to_check != "" and GameState.has_flag(flag_to_check) and dialogue_after_flag != "":
-		return dialogue_after_flag
-	return dialogue
-
-func _start_dialogue() -> void:
-	var text := _get_active_text()
+func _interact() -> void:
 	var lines: Array = []
-	for raw in text.split("\n"):
+	for raw in interaction_text.split("\n"):
 		var line := (raw as String).strip_edges()
 		if line != "":
 			lines.append(line)
@@ -57,4 +50,6 @@ func _start_dialogue() -> void:
 		return
 	if prompt_label:
 		prompt_label.hide()
-	DialogueManager.show_dialogue(npc_name, lines)
+	DialogueManager.show_dialogue(speaker_name, lines)
+	if sets_flag != "":
+		GameState.set_flag(sets_flag, true)
