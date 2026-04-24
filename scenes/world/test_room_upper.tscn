@@ -1,7 +1,8 @@
-[gd_scene load_steps=4 format=3]
+[gd_scene load_steps=5 format=3]
 
 [ext_resource type="PackedScene" path="res://scenes/characters/player.tscn" id="1_player"]
 [ext_resource type="PackedScene" path="res://scenes/entities/exit_zone.tscn" id="2_exit"]
+[ext_resource type="PackedScene" path="res://scenes/entities/battle_trigger.tscn" id="3_battle"]
 
 [sub_resource type="RectangleShape2D" id="WallShape_1"]
 size = Vector2(20, 400)
@@ -41,6 +42,11 @@ shape = SubResource("WallShape_1")
 position = Vector2(0, 0)
 target_scene = "res://scenes/world/test_room.tscn"
 trigger_action = "ui_down"
+
+[node name="BattleTrigger" parent="." instance=ExtResource("3_battle")]
+position = Vector2(180, 0)
+battle_scene = "res://scenes/combat/battle.tscn"
+block_flag = "custode_sconfitto"
 
 [node name="Player" parent="." instance=ExtResource("1_player")]
 position = Vector2(0, 0)
