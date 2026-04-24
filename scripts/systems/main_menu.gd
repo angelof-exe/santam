@@ -17,10 +17,7 @@ func _ready() -> void:
 		new_game_button.grab_focus()
 
 func _on_new_game() -> void:
-	GameState.flags.clear()
-	GameState.inventory.clear()
-	GameState.party.clear()
-	GameState.delete_save()
+	GameState.reset_for_new_game()
 	get_tree().change_scene_to_file(FIRST_SCENE)
 
 func _on_continue() -> void:

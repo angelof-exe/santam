@@ -3,15 +3,13 @@ class_name Battle
 
 enum State { PLAYER_MENU, PLAYER_ATTACK_ANIM, ENEMY_TURN, ENEMY_ATTACK_ANIM, VICTORY, DEFEAT, FLED }
 
-@export var player_max_hp: int = 20
-@export var player_atk: int = 5
 @export var enemy_name: String = "Custode meccanico"
 @export var enemy_max_hp: int = 10
 @export var enemy_atk: int = 3
 @export var victory_flag: String = "custode_sconfitto"
 @export_file("*.tscn") var return_scene: String = "res://scenes/world/test_room.tscn"
+@export_file("*.tscn") var game_over_scene: String = "res://scenes/ui/game_over.tscn"
 
-var player_hp: int
 var enemy_hp: int
 var state: State = State.PLAYER_MENU
 
@@ -22,7 +20,6 @@ var state: State = State.PLAYER_MENU
 @onready var flee_button: Button = $HUD/ActionMenu/FleeButton
 
 func _ready() -> void:
-	player_hp = player_max_hp
 	enemy_hp = enemy_max_hp
 	attack_button.pressed.connect(_on_attack)
 	flee_button.pressed.connect(_on_flee)
@@ -32,7 +29,7 @@ func _ready() -> void:
 	attack_button.grab_focus()
 
 func _update_hud() -> void:
-	player_hp_label.text = "Turi   %d/%d" % [player_hp, player_max_hp]
+	player_hp_label.text = "Turi   %d/%d" % [GameState.player_hp, GameState.player_max_hp]
 	enemy_hp_label.text = "%s   %d/%d" % [enemy_name, enemy_hp, enemy_max_hp]
 
 func _show_message(text: String) -> void:
@@ -50,7 +47,7 @@ func _on_attack() -> void:
 	if state != State.PLAYER_MENU:
 		return
 	_set_state(State.PLAYER_ATTACK_ANIM)
-	var dmg := player_atk + randi_range(-1, 2)
+	var dmg: int = GameState.player_atk + randi_range(-1, 2)
 	enemy_hp = max(0, enemy_hp - dmg)
 	_update_hud()
 	_show_message("Turi colpisce con la chiave inglese. %d danni." % dmg)
@@ -72,12 +69,12 @@ func _enemy_turn() -> void:
 	_set_state(State.ENEMY_TURN)
 	_show_message("Il %s raccoglie il vapore..." % enemy_name)
 	await get_tree().create_timer(0.8).timeout
-	var dmg := enemy_atk + randi_range(-1, 2)
-	player_hp = max(0, player_hp - dmg)
+	var dmg: int = enemy_atk + randi_range(-1, 2)
+	GameState.damage_player(dmg)
 	_update_hud()
 	_show_message("Il %s colpisce. %d danni." % [enemy_name, dmg])
 	await get_tree().create_timer(1.0).timeout
-	if player_hp <= 0:
+	if not GameState.is_player_alive():
 		_defeat()
 	else:
 		_set_state(State.PLAYER_MENU)
@@ -95,7 +92,10 @@ func _defeat() -> void:
 	_set_state(State.DEFEAT)
 	_show_message("Turi cade a terra. Il vapore lo avvolge.")
 	await get_tree().create_timer(2.2).timeout
-	_return_to_world()
+	if game_over_scene != "":
+		get_tree().change_scene_to_file(game_over_scene)
+	else:
+		_return_to_world()
 
 func _return_to_world() -> void:
 	if return_scene == "":

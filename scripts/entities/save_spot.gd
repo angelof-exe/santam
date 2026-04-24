@@ -39,8 +39,9 @@ func _unhandled_input(event: InputEvent) -> void:
 func _save() -> void:
 	if prompt_label:
 		prompt_label.hide()
+	GameState.heal_player()
 	var ok := GameState.save_game()
 	if ok:
-		DialogueManager.show_dialogue("", ["Il tempo si ferma.", "Salvato."])
+		DialogueManager.show_dialogue("", ["Il tempo si ferma.", "HP ripristinati.", "Salvato."])
 	else:
-		DialogueManager.show_dialogue("", ["Errore di scrittura."])
+		DialogueManager.show_dialogue("", ["HP ripristinati.", "Errore di scrittura."])
