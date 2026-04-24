@@ -1,7 +1,8 @@
-[gd_scene load_steps=4 format=3]
+[gd_scene load_steps=5 format=3]
 
 [ext_resource type="PackedScene" path="res://scenes/characters/player.tscn" id="1_player"]
 [ext_resource type="PackedScene" path="res://scenes/entities/exit_zone.tscn" id="2_exit"]
+[ext_resource type="PackedScene" path="res://scenes/characters/npc.tscn" id="3_npc"]
 
 [sub_resource type="RectangleShape2D" id="WallShape_1"]
 size = Vector2(20, 400)
@@ -41,6 +42,13 @@ shape = SubResource("WallShape_1")
 position = Vector2(0, 0)
 target_scene = "res://scenes/world/test_room_upper.tscn"
 trigger_action = "ui_up"
+
+[node name="VecchiaNPC" parent="." instance=ExtResource("3_npc")]
+position = Vector2(200, 0)
+npc_name = "Vecchia di strada"
+dialogue = "Ah, sì... puri tu hai sintutu u vapuri, stanotti?
+Sutta 'a terra si mòvi cosa, picciotto.
+Si' curiusu? Allura sali, ca di susu si senti megghiu."
 
 [node name="Player" parent="." instance=ExtResource("1_player")]
 position = Vector2(-300, 0)

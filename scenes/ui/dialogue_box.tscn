@@ -1,0 +1,38 @@
+[gd_scene load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/systems/dialogue_box.gd" id="1"]
+
+[node name="DialogueBox" type="CanvasLayer"]
+script = ExtResource("1")
+layer = 100
+
+[node name="Panel" type="Panel" parent="."]
+offset_left = 12.0
+offset_top = 116.0
+offset_right = 308.0
+offset_bottom = 168.0
+
+[node name="NameLabel" type="Label" parent="Panel"]
+offset_left = 8.0
+offset_top = 2.0
+offset_right = 280.0
+offset_bottom = 14.0
+text = "???"
+theme_override_colors/font_color = Color(0.95, 0.84, 0.5, 1)
+
+[node name="TextLabel" type="Label" parent="Panel"]
+offset_left = 8.0
+offset_top = 16.0
+offset_right = 288.0
+offset_bottom = 42.0
+text = ""
+autowrap_mode = 2
+
+[node name="HintLabel" type="Label" parent="Panel"]
+offset_left = 250.0
+offset_top = 38.0
+offset_right = 288.0
+offset_bottom = 50.0
+text = "[↵]"
+horizontal_alignment = 2
+theme_override_colors/font_color = Color(0.7, 0.7, 0.7, 1)

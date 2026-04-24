@@ -17,17 +17,22 @@ func _ready() -> void:
 func _on_body_entered(body: Node) -> void:
 	if body is Player:
 		_player_inside = true
-		if prompt_label:
-			prompt_label.show()
+		_update_prompt()
 
 func _on_body_exited(body: Node) -> void:
 	if body is Player:
 		_player_inside = false
-		if prompt_label:
-			prompt_label.hide()
+		_update_prompt()
+
+func _update_prompt() -> void:
+	if prompt_label == null:
+		return
+	prompt_label.visible = _player_inside and not DialogueManager.is_active()
 
 func _unhandled_input(event: InputEvent) -> void:
 	if not _player_inside:
+		return
+	if DialogueManager.is_active():
 		return
 	if event.is_action_pressed(trigger_action):
 		_transition()
