@@ -181,15 +181,54 @@ Installazione: *AssetLib* → cerca → Download → abilita in *Project Setting
 
 ---
 
-## 9. Prossimi passi suggeriti (in ordine)
+## 9. Stato di implementazione e controlli
 
-1. **Validare** il test (Turi si muove col tasto freccia)
-2. **Collisioni** → muri nel `test_room.tscn` (StaticBody2D + CollisionShape2D)
-3. **TileMap di prova** → prima mappa con tileset temporaneo (asset pack itch.io / Kenney)
-4. **Scena dialogo** (Dialogue Manager) → tutorial con un NPC
-5. **Sistema inventario** → Resource custom + UI base
-6. **Combat prototype** → scena a turni con 1 nemico di prova
-7. **Asset definitivi** → palette master + primi sprite di Turi
+### 9.1 Sistemi implementati
+
+- ✅ Movimento laterale del Player + flip sprite sulla direzione
+- ✅ Collisioni ai bordi (muri StaticBody2D)
+- ✅ Transizioni fra scene via **ExitZone** (↑/↓ configurabili)
+- ✅ Sistema **dialoghi** (DialogueManager autoload + DialogueBox UI)
+- ✅ **NPC** base class con prompt "!" e dialogo multi-linea
+- ✅ **Interactable** / **Sign** con prompt "?"
+- ✅ Sistema **flag** (GameState.set_flag / has_flag)
+- ✅ Dialoghi **alternativi basati su flag** (NPC.dialogue_after_flag)
+- ✅ **ItemPickup** + **inventario** (GameState.inventory)
+- ✅ **Inventory UI** toggled con Tab
+- ✅ **Combat skeleton** turn-based (scena `battle.tscn`, bottoni Attacca/Fuggi)
+- ✅ **Save/Load** JSON (`user://savegame.json`) + **SaveSpot** interactable, auto-load al boot
+- ⬜ Player animazioni (walk cycle, idle, attack)
+- ⬜ Asset pixel art definitivi (vedi `03_pixel_art_brief.md`)
+- ⬜ TileMap reale con tileset
+- ⬜ Main menu (New / Continue / Quit)
+- ⬜ Game Over screen
+- ⬜ AudioManager reale (musica, SFX)
+- ⬜ Scene reali di Santam (sostituire test rooms)
+- ⬜ Enemy variety, XP, leveling, skill
+
+### 9.2 Controlli correnti
+
+| Tasto | Azione |
+|---|---|
+| ← → | muovi Turi |
+| ↵ Invio / Spazio | interagisci (NPC, Sign, ItemPickup, SaveSpot) • avanza dialogo • click pulsanti in battaglia |
+| ↑ | entra in Exit Zone (cambia stanza verso l'alto) |
+| ↓ | entra in Exit Zone (torna in corridoio sotto) |
+| Tab | apri / chiudi Inventario |
+| Esc / Backspace | avanza dialogo (alternativa a Invio) |
+
+### 9.3 Quest chain di test (avvia con F5)
+
+1. **Corridoio A** (spawn). A x=-240 c'è il **SaveSpot** (esagono oro). Opzionale: premi Invio per salvare.
+2. A x=-120, il **Cartello**. Premi Invio → leggi 3 righe → flag `vapore_sentito` impostato.
+3. A x=200, la **Vecchia di strada**. Premi Invio → dialogo *cambia* grazie al flag appena impostato.
+4. Torna al centro (x=0) nell'**ExitZone**. Appare prompt "↑". Premi ↑.
+5. **Corridoio B**. Vai a destra fino al **BattleTrigger** (x=180, rettangolo magenta). Al contatto, parte la battaglia.
+6. Battaglia: premi **Attacca** ~3 volte finché il Custode va a 0 HP → flag `custode_sconfitto` → ritorno a Corridoio A.
+7. Torna al centro, premi ↑ per rientrare in Corridoio B.
+8. A x=180, dove cadeva il Custode, ora c'è un esagono bronzo: l'**Ingranaggio**. Premi Invio → raccolto.
+9. Premi **Tab** → inventario mostra "Ingranaggio x1".
+10. Torna al SaveSpot in Corridoio A e salva. Chiudi Godot, riaprilo: al boot, auto-load → flag + ingranaggio persistono.
 
 ---
 
