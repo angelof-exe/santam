@@ -12,10 +12,15 @@ func _ready() -> void:
 func _unhandled_input(event: InputEvent) -> void:
 	if DialogueManager.is_active():
 		return
+	if get_tree().paused and not _open:
+		return
 	if event is InputEventKey and event.pressed and not event.echo:
 		if event.keycode == KEY_TAB:
 			toggle()
 			get_viewport().set_input_as_handled()
+
+func is_open() -> bool:
+	return _open
 
 func toggle() -> void:
 	if _open:

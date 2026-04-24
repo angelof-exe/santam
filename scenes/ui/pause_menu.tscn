@@ -1,0 +1,54 @@
+[gd_scene load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/systems/pause_menu.gd" id="1"]
+
+[node name="PauseMenu" type="CanvasLayer"]
+script = ExtResource("1")
+layer = 70
+
+[node name="Overlay" type="ColorRect" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color(0, 0, 0, 0.7)
+
+[node name="Panel" type="Panel" parent="Overlay"]
+offset_left = 80.0
+offset_top = 20.0
+offset_right = 240.0
+offset_bottom = 164.0
+
+[node name="Title" type="Label" parent="Overlay/Panel"]
+offset_left = 8.0
+offset_top = 4.0
+offset_right = 152.0
+offset_bottom = 20.0
+text = "Pausa"
+horizontal_alignment = 1
+theme_override_colors/font_color = Color(0.95, 0.84, 0.5, 1)
+
+[node name="Buttons" type="VBoxContainer" parent="Overlay/Panel"]
+offset_left = 12.0
+offset_top = 26.0
+offset_right = 148.0
+offset_bottom = 122.0
+
+[node name="ContinueButton" type="Button" parent="Overlay/Panel/Buttons"]
+text = "Continua"
+
+[node name="SaveButton" type="Button" parent="Overlay/Panel/Buttons"]
+text = "Salva"
+
+[node name="MenuButton" type="Button" parent="Overlay/Panel/Buttons"]
+text = "Torna al menu"
+
+[node name="QuitButton" type="Button" parent="Overlay/Panel/Buttons"]
+text = "Esci"
+
+[node name="StatusLabel" type="Label" parent="Overlay/Panel"]
+offset_left = 8.0
+offset_top = 126.0
+offset_right = 152.0
+offset_bottom = 140.0
+text = ""
+horizontal_alignment = 1
+theme_override_colors/font_color = Color(0.7, 0.85, 0.5, 1)

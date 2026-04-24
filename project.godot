@@ -26,6 +26,7 @@ GameState="*res://scripts/autoload/game_state.gd"
 AudioManager="*res://scripts/autoload/audio_manager.gd"
 DialogueManager="*res://scripts/autoload/dialogue_manager.gd"
 InventoryScreen="*res://scenes/ui/inventory_screen.tscn"
+PauseMenu="*res://scenes/ui/pause_menu.tscn"
 
 [display]
 
