@@ -1,9 +1,10 @@
-[gd_scene load_steps=6 format=3]
+[gd_scene load_steps=7 format=3]
 
 [ext_resource type="PackedScene" path="res://scenes/characters/player.tscn" id="1_player"]
 [ext_resource type="PackedScene" path="res://scenes/entities/exit_zone.tscn" id="2_exit"]
 [ext_resource type="PackedScene" path="res://scenes/characters/npc.tscn" id="3_npc"]
 [ext_resource type="PackedScene" path="res://scenes/entities/sign.tscn" id="4_sign"]
+[ext_resource type="PackedScene" path="res://scenes/entities/save_spot.tscn" id="5_save"]
 
 [sub_resource type="RectangleShape2D" id="WallShape_1"]
 size = Vector2(20, 400)
@@ -43,6 +44,9 @@ shape = SubResource("WallShape_1")
 position = Vector2(0, 0)
 target_scene = "res://scenes/world/test_room_upper.tscn"
 trigger_action = "ui_up"
+
+[node name="SaveSpot" parent="." instance=ExtResource("5_save")]
+position = Vector2(-240, 0)
 
 [node name="MuroSign" parent="." instance=ExtResource("4_sign")]
 position = Vector2(-120, 0)
