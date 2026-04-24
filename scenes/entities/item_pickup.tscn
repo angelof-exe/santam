@@ -1,0 +1,25 @@
+[gd_scene load_steps=3 format=3]
+
+[ext_resource type="Script" path="res://scripts/entities/item_pickup.gd" id="1"]
+
+[sub_resource type="RectangleShape2D" id="PickupShape_1"]
+size = Vector2(32, 40)
+
+[node name="ItemPickup" type="Area2D"]
+script = ExtResource("1")
+
+[node name="Visual" type="Polygon2D" parent="."]
+color = Color(0.69, 0.55, 0.34, 1)
+polygon = PackedVector2Array(-4, -4, 4, -4, 6, 0, 4, 4, -4, 4, -6, 0)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("PickupShape_1")
+
+[node name="PromptLabel" type="Label" parent="."]
+offset_left = -8.0
+offset_top = -22.0
+offset_right = 8.0
+offset_bottom = -8.0
+text = "?"
+horizontal_alignment = 1
+theme_override_colors/font_color = Color(1, 0.84, 0.5, 1)

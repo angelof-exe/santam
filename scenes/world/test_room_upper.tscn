@@ -1,8 +1,9 @@
-[gd_scene load_steps=5 format=3]
+[gd_scene load_steps=6 format=3]
 
 [ext_resource type="PackedScene" path="res://scenes/characters/player.tscn" id="1_player"]
 [ext_resource type="PackedScene" path="res://scenes/entities/exit_zone.tscn" id="2_exit"]
 [ext_resource type="PackedScene" path="res://scenes/entities/battle_trigger.tscn" id="3_battle"]
+[ext_resource type="PackedScene" path="res://scenes/entities/item_pickup.tscn" id="4_item"]
 
 [sub_resource type="RectangleShape2D" id="WallShape_1"]
 size = Vector2(20, 400)
@@ -47,6 +48,14 @@ trigger_action = "ui_down"
 position = Vector2(180, 0)
 battle_scene = "res://scenes/combat/battle.tscn"
 block_flag = "custode_sconfitto"
+
+[node name="IngranaggioLoot" parent="." instance=ExtResource("4_item")]
+position = Vector2(180, 10)
+item_id = "ingranaggio"
+item_display_name = "un Ingranaggio"
+item_count = 1
+requires_flag = "custode_sconfitto"
+pickup_flag = "ingranaggio_custode_raccolto"
 
 [node name="Player" parent="." instance=ExtResource("1_player")]
 position = Vector2(0, 0)
